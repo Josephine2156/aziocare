@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Meta tags and other head elements -->
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <label>Username
+            <input type="text" name="username" value="{{ data.username if data else '' }}">
+        </label>
+            <input type="password" name="password" value="{{ data.password if data else '' }}">
+            <input type="email" name="email" value="{{ data.email if data else '' }}">
+            <input type="text" name="phone_number" value="{{ data.phone_number if data else '' }}">
+            <select name="role">
+                <option value="Patient" {% if data and data.role == 'Patient' %}selected{% endif %}>Patient</option>
+                <option value="Doctor" {% if data and data.role == 'Doctor' %}selected{% endif %}>Doctor</option>
+                <option value="Admin" {% if data and data.role == 'Admin' %}selected{% endif %}>Admin</option>
+            </select>
+            <button type="submit">Register</button>
+        </form>
+        
+    </div>
+</body>
+</html>
