@@ -4,4 +4,4 @@ common_bp = Blueprint('common',__name__)
 
 @common_bp.route('/')
 def homepage():
-    return render_template("Arsha/index.html")
+    return render_template("common/homepage.html")
