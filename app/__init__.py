@@ -1,7 +1,7 @@
 from flask import Flask
 from .config import Config
 from .extensions import mongo
-from .blueprints import common_bp, auth_bp
+from .blueprints import common_bp, auth_bp, dashboard_bp
 
 def create_app():
     app = Flask(__name__)
@@ -11,5 +11,6 @@ def create_app():
 
     app.register_blueprint(common_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(dashboard_bp)
 
     return app

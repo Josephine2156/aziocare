@@ -3,9 +3,10 @@ from pymongo.errors import WriteError
 from marshmallow import ValidationError
 from app.schemas import UserSchema
 from app.extensions import mongo
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import functools
+from bson.objectid import ObjectId
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -57,6 +58,37 @@ def register():
 
 
 
-@auth_bp.route('/login', methods=['GET'])
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        # Searches for a user in the MongoDB users collection with the specified email and returns the first document that matches the query or None if no match is found
+        user = mongo.db.users.find_one({'email': email})
+
+        if user is None:
+            flash('Account does not exist, please register.', 'danger')
+            return redirect(url_for('auth.register'))
+
+        if not check_password_hash(user['password'], password):
+            flash('Incorrect password, please try again.', 'danger')
+            return redirect(url_for('auth.login'))
+
+        session['user_id'] = str(user['_id'])
+        session['role'] = user.get('role', 'Patient')  # Default to 'Patient' if no role is found
+        session['loggedin'] = True
+        flash('Logged in successfully.', 'success')
+
+        # Redirect to the appropriate dashboard based on role
+        if session['role'] == 'Patient':
+            return redirect(url_for('dashboard.patient_dashboard'))
+        elif session['role'] == 'Doctor':
+            return redirect(url_for('dashboard.doctor_dashboard'))
+        elif session['role'] == 'Admin':
+            return redirect(url_for('dashboard.admin_dashboard'))
+        else:
+            flash('Role not recognized.', 'danger')
+            return redirect(url_for('auth.login'))
+
     return render_template('auth/login.html')
