@@ -1,33 +1,78 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Meta tags and other head elements -->
-</head>
-<body>
-    <div class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+{% extends 'common/content-base.html' %}
 
-        <form method="POST">
-            <label>Username
-            <input type="text" name="username" value="{{ data.username if data else '' }}">
-        </label>
-            <input type="password" name="password" value="{{ data.password if data else '' }}">
-            <input type="email" name="email" value="{{ data.email if data else '' }}">
-            <input type="text" name="phone_number" value="{{ data.phone_number if data else '' }}">
-            <select name="role">
-                <option value="Patient" {% if data and data.role == 'Patient' %}selected{% endif %}>Patient</option>
-                <option value="Doctor" {% if data and data.role == 'Doctor' %}selected{% endif %}>Doctor</option>
-                <option value="Admin" {% if data and data.role == 'Admin' %}selected{% endif %}>Admin</option>
-            </select>
-            <button type="submit">Register</button>
-        </form>
-        
-    </div>
-</body>
-</html>
+{% block title %}Register{% endblock %}
+
+{% block content%}    
+
+
+    <!-- Page Title -->
+    <div class="page-title">
+      <div class="container">
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="{{ url_for('common.homepage') }}">Home</a></li>
+            <li class="current">Register</li>
+          </ol>
+        </nav>
+        <h1>Register</h1>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Starter Section Section -->
+    <section id="starter-section" class="starter-section section">
+
+      <div class="container">
+        <div class="col-lg-7">
+            <form method="post" action="{{ url_for('auth.register') }}">
+                <div class="row gy-4">
+                  <div class="col-md-6">
+                    <label for="first_name" class="pb-2">First Name</label>
+                    <input type="text" id="first_name" name="first_name" class="form-control" value="{{ data.first_name if data else '' }}" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="last_name" class="pb-2">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" class="form-control" value="{{ data.last_name if data else '' }}" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="email" class="pb-2">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" value="{{ data.email if data else '' }}" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="phone_number" class="pb-2">Phone Number</label>
+                    <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{ data.phone_number if data else '' }}" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="password" class="pb-2">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="confirm_password" class="pb-2">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="date_of_birth" class="pb-2">Date of Birth</label> <p style="font-size: 0.7rem;">You must be 16 years or older to register with AzioCare</p>
+
+                    <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ data.date_of_birth if data else '' }}" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="role" class="pb-2">Role</label>
+                    <select id="role" name="role" class="form-control">
+                      <option value="Patient" {% if data.role == 'Patient' %}selected{% endif %}>Patient</option>
+                      <option value="Doctor" {% if data.role == 'Doctor' %}selected{% endif %}>Doctor</option>
+                      <option value="Admin" {% if data.role == 'Admin' %}selected{% endif %}>Admin</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mt-4 text-center">
+                  <button type="submit" class="submit-button">Submit</button>
+                </div>
+              </form>
+              
+              
+          </div>
+      </div>
+
+    </section><!-- /Starter Section Section -->
+
+</div>
+{% endblock %}

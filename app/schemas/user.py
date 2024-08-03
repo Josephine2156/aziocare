@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, validate, validates, ValidationError
+from marshmallow import Schema, fields, validate, validates, validates_schema, ValidationError
 from datetime import date
 from app.extensions import mongo
 import re
@@ -25,18 +25,17 @@ class UserSchema(Schema):
     )
     first_name = fields.Str(required=True, validate=validate.Length(min=1, error="First name is required."))
     last_name = fields.Str(required=True, validate=validate.Length(min=1, error="Last name is required."))
-    preferred_name = fields.Str(validate=validate.Length(min=1, error="Preferred name must be at least 1 character long."), required=False)
     date_of_birth = fields.Date(required=True)
 
     @validates('password')
     def validate_alphanumeric_password(self, value):
         if not re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$', value):
             raise ValidationError("Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.")
-    
-    @validates('confirm_password')
-    def validate_password_confirmation(self, value, **kwargs):
-        if value != self.context['password']:
-            raise ValidationError("Password and confirm password must match.")
+
+    @validates_schema
+    def validate_password_confirmation(self, data, **kwargs):
+        if data.get('password') != data.get('confirm_password'):
+            raise ValidationError("Passwords must match", field_names=["confirm_password"])
 
     @validates('email')
     def validate_unique_email(self, value):
@@ -49,3 +48,5 @@ class UserSchema(Schema):
         age = today.year - value.year - ((today.month, today.day) < (value.month, value.day))
         if age < 16:
             raise ValidationError("You must be at least 16 years old to register.")
+
+user_schema = UserSchema()
