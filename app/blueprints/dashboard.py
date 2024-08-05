@@ -12,7 +12,7 @@ def patient_dashboard():
 @dashboard_bp.route('/doctor_dashboard')
 @login_and_role_required('Doctor')
 def doctor_dashboard():
-    return render_template('dashboard/base_dashboard.html')
+    return render_template('dashboard/dashboard_doctor.html')
 
 @dashboard_bp.route('/admin_dashboard')
 @login_and_role_required('Admin')
