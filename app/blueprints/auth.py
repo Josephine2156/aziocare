@@ -6,7 +6,7 @@ from app.extensions import mongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import functools
-from bson.objectid import ObjectId
+
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
