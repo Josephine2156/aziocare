@@ -77,6 +77,9 @@ def login():
 
         session['user_id'] = str(user['_id'])
         session['role'] = user.get('role', 'Patient')  # Default to 'Patient' if no role is found
+        session['first_name'] = user['first_name']
+        session['last_name'] = user['last_name']
+        print (session['first_name'])
         session['loggedin'] = True
         flash('Logged in successfully.', 'success')
 
