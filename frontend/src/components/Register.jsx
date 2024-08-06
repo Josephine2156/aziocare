@@ -8,12 +8,24 @@ const initialState = {
   date_of_birth: "",
   first_name: "",
   last_name: "",
-  phone_number: "", // New phone number field
+  phone_number: "",
   role: "Patient", // Default role
 };
 
 function Register() {
-  const [{ email, password, confirm_password, date_of_birth, first_name, last_name, phone_number, role }, setState] = useState(initialState);
+  const [
+    {
+      email,
+      password,
+      confirm_password,
+      date_of_birth,
+      first_name,
+      last_name,
+      phone_number,
+      role,
+    },
+    setState,
+  ] = useState(initialState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,17 +36,26 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with data:", { email, password, confirm_password, date_of_birth, first_name, last_name, phone_number, role });
+    console.log("Form submitted with data:", {
+      email,
+      password,
+      confirm_password,
+      date_of_birth,
+      first_name,
+      last_name,
+      phone_number,
+      role,
+    });
     try {
-      const response = await axios.post("/auth/register", { 
-        email, 
-        password, 
-        confirm_password, 
-        date_of_birth, 
-        first_name, 
-        last_name, 
-        phone_number, 
-        role 
+      const response = await axios.post("/auth/register", {
+        email,
+        password,
+        confirm_password,
+        date_of_birth,
+        first_name,
+        last_name,
+        phone_number,
+        role,
       });
       console.log("API response:", response);
       alert(response.data.message);
@@ -43,14 +64,17 @@ function Register() {
       console.error("Error:", error); // Log the entire error object
       if (error.response) {
         console.error("Error response:", error.response);
-        alert(error.response.data.error || "Registration failed");
+        if (error.response.data.errors) {
+          const errorMessages = Object.values(error.response.data.errors).flat().join("\n");
+          alert("Validation errors:\n" + errorMessages);
+        } else {
+          alert(error.response.data.error || "Registration failed");
+        }
       } else {
         alert("An error occurred: " + error.message);
       }
     }
   };
-  
-  
 
   return (
     <div className="register-form-container">
@@ -67,6 +91,7 @@ function Register() {
             className="form-control"
             placeholder="First Name"
             required
+            value={first_name}
             onChange={handleChange}
           />
         </div>
@@ -78,6 +103,7 @@ function Register() {
             className="form-control"
             placeholder="Last Name"
             required
+            value={last_name}
             onChange={handleChange}
           />
         </div>
@@ -89,6 +115,7 @@ function Register() {
             className="form-control"
             placeholder="Email"
             required
+            value={email}
             onChange={handleChange}
           />
         </div>
@@ -100,6 +127,7 @@ function Register() {
             className="form-control"
             placeholder="Date of Birth"
             required
+            value={date_of_birth}
             onChange={handleChange}
           />
         </div>
@@ -111,6 +139,7 @@ function Register() {
             className="form-control"
             placeholder="Phone Number"
             required
+            value={phone_number}
             onChange={handleChange}
           />
         </div>
@@ -122,6 +151,7 @@ function Register() {
             className="form-control"
             placeholder="Password"
             required
+            value={password}
             onChange={handleChange}
           />
         </div>
@@ -133,6 +163,7 @@ function Register() {
             className="form-control"
             placeholder="Confirm Password"
             required
+            value={confirm_password}
             onChange={handleChange}
           />
         </div>
@@ -150,7 +181,7 @@ function Register() {
             <option value="Admin">Admin</option>
           </select>
         </div>
-        
+
         <button type="submit" className="btn btn-custom btn-lg">
           Register
         </button>

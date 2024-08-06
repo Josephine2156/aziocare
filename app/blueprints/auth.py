@@ -23,7 +23,7 @@ def register():
         mongo.db.users.insert_one(validated_data)
         return jsonify({"message": "User registered successfully!"}), 201
     except ValidationError as err:
-        return jsonify(err.messages), 400
+        return jsonify({"errors": err.messages}), 400
     except WriteError as e:
         return jsonify({"error": str(e)}), 400
     except Exception as e:
@@ -53,3 +53,4 @@ def login():
         return jsonify({"message": "Logged in successfully.", "role": session['role']}), 200
     except Exception as e:
         return jsonify({"error": "An unexpected error occurred."}), 500
+

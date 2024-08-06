@@ -29,7 +29,13 @@ function Login() {
         window.location.href = "/dashboard/admin";
       }
     } catch (error) {
-      alert(error.response?.data?.error || "Login failed");
+      console.error("Login error:", error); // Log the error
+      if (error.response) {
+        console.error("Error response:", error.response);
+        alert(error.response.data.error || "Login failed");
+      } else {
+        alert("An error occurred: " + error.message);
+      }
     }
   };
 
@@ -48,6 +54,7 @@ function Login() {
             className="form-control"
             placeholder="Email"
             required
+            value={formData.email}
             onChange={handleChange}
           />
         </div>
@@ -59,6 +66,7 @@ function Login() {
             className="form-control"
             placeholder="Password"
             required
+            value={formData.password}
             onChange={handleChange}
           />
         </div>
