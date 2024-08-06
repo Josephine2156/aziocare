@@ -9,8 +9,8 @@ function Login() {
 
   const handleChange = (e) => {
     setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+      ...formData, //use spread operator to take exising property of form data and include in new object
+      [e.target.name]: e.target.value, //update the property and value that triggered the event 
     });
   };
 
@@ -18,9 +18,9 @@ function Login() {
     e.preventDefault();
     try {
       const response = await axios.post("/auth/login", formData);
-      alert(response.data.message);
+      alert(response.data.message); //success message 
       // Handle storing user session data and redirecting based on role
-      const role = response.data.role;
+      const role = response.data.role; //retrieve user role from the response
       if (role === 'Patient') {
         window.location.href = "/dashboard/patient";
       } else if (role === 'Doctor') {
@@ -29,12 +29,12 @@ function Login() {
         window.location.href = "/dashboard/admin";
       }
     } catch (error) {
-      console.error("Login error:", error); // Log the error
+      console.error("Login error:", error); // Log the error for debugging 
       if (error.response) {
         console.error("Error response:", error.response);
-        alert(error.response.data.error || "Login failed");
+        alert(error.response.data.error || "Login failed"); //any valdation errors, else default message
       } else {
-        alert("An error occurred: " + error.message);
+        alert("An error occurred: " + error.message); //generic error if theres no server response 
       }
     }
   };
