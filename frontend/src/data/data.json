@@ -1,0 +1,162 @@
+{
+  "Header": {
+    "title": "Your health, your portal",
+    "paragraph": "We've made it easy for individuals and their healthcare providers to stay connected anytime, anywhere."
+  },
+  "About": {
+    "paragraph": "Welcome to AzioCare, your trusted partner in convenient health management. Our innovative online platform simplifies healthcare, making it more accessible and manageable. At AzioCare, we prioritize your health and support you every step of the way with a seamless, integrated system.",
+    "Why": [
+      "Easy Appointment Booking",
+      "Prescription Management",
+      "Access to Medical Records",
+      "Personalized Health Reminders"
+    ],
+    "Why2": [
+      "Seamless Experience",
+      "Free to Access",
+      "Dedicated Support",
+      "Secure and Private"
+    ]
+  },
+  "Gallery": [
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/01-large.jpg",
+      "smallImage": "img/portfolio/01-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/02-large.jpg",
+      "smallImage": "img/portfolio/02-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/03-large.jpg",
+      "smallImage": "img/portfolio/03-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/04-large.jpg",
+      "smallImage": "img/portfolio/04-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/05-large.jpg",
+      "smallImage": "img/portfolio/05-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/06-large.jpg",
+      "smallImage": "img/portfolio/06-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/07-large.jpg",
+      "smallImage": "img/portfolio/07-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/08-large.jpg",
+      "smallImage": "img/portfolio/08-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/09-large.jpg",
+      "smallImage": "img/portfolio/09-small.jpg"
+    }
+  ],
+  "Services": [
+    {
+      "icon": "fa fa-calendar",
+      "name": "Easy Appointment Booking",
+      "text": "Schedule and manage appointments with your healthcare providers at your convenience."
+    },
+    {
+      "icon": "fa fa-circle",
+      "name": "Prescription Management",
+      "text": "Request prescription repeats online, reducing the need for frequent visits."
+    },
+    {
+      "icon": "fa fa-bell-o",
+      "name": "Personalized Health Reminders",
+      "text": "Receive reminders for upcoming appointments, medication schedules, and other health-related activities via email or SMS."
+    },
+    {
+      "icon": "fa fa-files-o",
+      "name": "Access to Medical Records",
+      "text": "Securely access and manage your medical history, and share it with your healthcare providers as needed."
+    },
+    {
+      "icon": "fa fa-desktop",
+      "name": "Online Consultation",
+      "text": "Connect with your healthcare provider through virtual consultations for quick and convenient medical advice."
+    },
+    {
+      "icon": "fa fa-lock",
+      "name": "Data Security and Privacy",
+      "text": "Robust security measures to protect your sensitive health data, ensuring confidentiality and peace of mind."
+    }
+  ],
+  "Testimonials": [
+    {
+      "img": "img/testimonials/01.jpg",
+      "text": "\"The convenience of booking appointments online and accessing my medical records anytime is invaluable. Highly recommend it!\"",
+      "name": "George Smith"
+    },
+    {
+      "img": "img/testimonials/02.jpg",
+      "text": "\"The secure access to my medical records gives me peace of mind. I can share my health history with any healthcare provider seamlessly.\"",
+      "name": "Michael Johnson"
+    },
+    {
+      "img": "img/testimonials/03.jpg",
+      "text": "\"AzioCare’s prescription management system is fantastic. I no longer have to worry about running out of medication. Requesting repeats is just a few clicks away.\"",
+      "name": "Chris Lee"
+    },
+    {
+      "img": "img/testimonials/04.jpg",
+      "text": "\"The ease of booking appointments and the excellent customer support make AzioCare stand out. It's a very user-friendly platform that I would recommend to everyone.\"",
+      "name": "Sarah Wilson"
+    },
+    {
+      "img": "img/testimonials/05.jpg",
+      "text": "\"AzioCare has made managing my family's health so much easier. The ability to keep track of everyone's appointments and medical records in one place is incredibly helpful.\"",
+      "name": "John Doe"
+    },
+    {
+      "img": "img/testimonials/06.jpg",
+      "text": "\"I'm impressed with the level of data security AzioCare provides. Knowing my personal health information is safe and accessible only to me and my doctors is very reassuring.\"",
+      "name": "Sophia Brown"
+    }
+  ],
+  "Team": [
+    {
+      "img": "img/team/01.jpg",
+      "name": "John Doe",
+      "job": "Director"
+    },
+    {
+      "img": "img/team/02.jpg",
+      "name": "Mike Doe",
+      "job": "Senior Designer"
+    },
+    {
+      "img": "img/team/03.jpg",
+      "name": "Jane Doe",
+      "job": "Senior Designer"
+    },
+    {
+      "img": "img/team/04.jpg",
+      "name": "Karen Doe",
+      "job": "Project Manager"
+    }
+  ],
+  "Contact": {
+    "address": "4321 California St, San Francisco, CA 12345 ",
+    "phone": "+1 123 456 1234",
+    "email": "info@company.com",
+    "facebook": "fb.com",
+    "twitter": "twitter.com",
+    "youtube": "youtube.com"
+  }
+}

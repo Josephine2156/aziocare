@@ -12,13 +12,6 @@ class UserSchema(Schema):
     )
     confirm_password = fields.Str(required=True)
     email = fields.Email(required=True)
-    phone_number = fields.Str(
-        required=True,
-        validate=validate.Regexp(
-            r'^\+?1?\d{9,15}$',
-            error="Invalid phone number."
-        )
-    )
     role = fields.Str(
         required=True,
         validate=validate.OneOf(["Patient", "Doctor", "Admin"], error="Role must be either 'Patient', 'Doctor', or 'Admin'.")
