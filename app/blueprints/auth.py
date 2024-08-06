@@ -21,7 +21,7 @@ def register():
             date_of_birth = validated_data['date_of_birth']
             validated_data['date_of_birth'] = datetime(date_of_birth.year, date_of_birth.month, date_of_birth.day) #convert to datetime object
         mongo.db.users.insert_one(validated_data) #store validated data in db
-        return jsonify({"message": "User registered successfully!"}), 201 #success message
+        return jsonify({"message": "Registration succesful! Please log in."}), 201 #success message
     except ValidationError as err:
         return jsonify({"errors": err.messages}), 400 #validation errors
     except WriteError as e:

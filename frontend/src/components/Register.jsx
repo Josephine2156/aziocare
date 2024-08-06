@@ -50,6 +50,7 @@ function Register() {
       console.log("API response:", response);
       alert(response.data.message); //success message 
       clearState(); //reset form field to initial state 
+      window.location.href = '/login'; //redirect to login page
     } catch (error) {
       console.error("Error:", error); // Log the entire error object
       if (error.response) {
@@ -58,7 +59,7 @@ function Register() {
           const errorMessages = Object.values(error.response.data.errors).flat().join("\n"); //any validation errrors
           alert("Validation errors:\n" + errorMessages);
         } else {
-          alert(error.response.data.error || "Registration failed"); //general error message if there are no validation errors
+          alert(error.response.data.error || "Registration failed. Please try again."); //general error message if there are no validation errors
         }
       } else {
         alert("An error occurred: " + error.message); //general error message if no server response 
