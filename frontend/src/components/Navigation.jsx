@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 export const Navigation = (props) => {
   return (
@@ -17,9 +19,9 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
             <span className="icon-bar"></span>{" "}
           </button>
-          <a className="navbar-brand page-scroll" href="#page-top">
+          <Link className="navbar-brand page-scroll" to="/">
             React Landing Page
-          </a>{" "}
+          </Link>{" "}
         </div>
 
         <div
@@ -28,39 +30,46 @@ export const Navigation = (props) => {
         >
           <ul className="nav navbar-nav navbar-right">
             <li>
-              <a href="#features" className="page-scroll">
+              <HashLink smooth to="/#features" className="page-scroll">
                 Features
-              </a>
+              </HashLink>
             </li>
             <li>
-              <a href="#about" className="page-scroll">
+              <HashLink smooth to="/#about" className="page-scroll">
                 About
-              </a>
+              </HashLink>
             </li>
             <li>
-              <a href="#services" className="page-scroll">
+              <HashLink smooth to="/#services" className="page-scroll">
                 Services
-              </a>
+              </HashLink>
             </li>
             <li>
-              <a href="#portfolio" className="page-scroll">
+              <HashLink smooth to="/#portfolio" className="page-scroll">
                 Gallery
-              </a>
+              </HashLink>
             </li>
             <li>
-              <a href="#testimonials" className="page-scroll">
+              <HashLink smooth to="/#testimonials" className="page-scroll">
                 Testimonials
-              </a>
+              </HashLink>
             </li>
             <li>
-              <a href="#team" className="page-scroll">
+              <HashLink smooth to="/#team" className="page-scroll">
                 Team
-              </a>
+              </HashLink>
             </li>
             <li>
-              <a href="#contact" className="page-scroll">
+              <HashLink smooth to="/#contact" className="page-scroll">
                 Contact
-              </a>
+              </HashLink>
+            </li>
+            {/* Add Login and Register links */}
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>
             </li>
           </ul>
         </div>

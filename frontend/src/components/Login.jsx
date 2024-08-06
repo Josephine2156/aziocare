@@ -17,7 +17,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", formData);
+      const response = await axios.post("/auth/login", formData);
       alert(response.data.message);
       // Handle storing user session data and redirecting based on role
       const role = response.data.role;
@@ -34,11 +34,37 @@ function Login() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" onChange={handleChange} placeholder="Email" required />
-        <input type="password" name="password" onChange={handleChange} placeholder="Password" required />
-        <button type="submit">Login</button>
+    <div className="login-form-container">
+      <form className="login-form" name="loginForm" validate onSubmit={handleSubmit}>
+        <div className="login-section-title">
+          <h2>Login</h2>
+          <p>Please enter your email and password to log in.</p>
+        </div>
+        <div className="form-group">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            className="form-control"
+            placeholder="Email"
+            required
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            className="form-control"
+            placeholder="Password"
+            required
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit" className="btn btn-custom btn-lg">
+          Login
+        </button>
       </form>
     </div>
   );

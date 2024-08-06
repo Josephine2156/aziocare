@@ -1,16 +1,12 @@
-from flask import Flask, Blueprint, request, jsonify, session, send_from_directory
+from flask import Blueprint, request, jsonify, session
 from pymongo.errors import WriteError
 from marshmallow import ValidationError
 from app.schemas import UserSchema
 from app.extensions import mongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-import os
 
-# Define the absolute path to the public directory
-static_folder = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', '..', 'frontend', 'public')
-
-auth_bp = Blueprint('auth', __name__, static_folder=static_folder, template_folder=static_folder)
+auth_bp = Blueprint('auth', __name__)
 
 user_schema = UserSchema()
 
@@ -57,15 +53,3 @@ def login():
         return jsonify({"message": "Logged in successfully.", "role": session['role']}), 200
     except Exception as e:
         return jsonify({"error": "An unexpected error occurred."}), 500
-
-@auth_bp.route('/', defaults={'path': ''})
-@auth_bp.route('/<path:path>')
-def serve_react_app(path):
-    print(f"Requested path: {path}")
-    full_path = os.path.join(auth_bp.static_folder, path)
-    print(f"Full path: {full_path}")
-    if path != "" and os.path.exists(full_path):
-        return send_from_directory(auth_bp.static_folder, path)
-    else:
-        return send_from_directory(auth_bp.static_folder, 'index.html')
-

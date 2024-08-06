@@ -604,3 +604,82 @@ label {
     margin: 50px 0;
   }
 }
+
+/* Centering the form container */
+.login-form-container, .register-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+}
+
+/* Centering the form container */
+.login-form-container, .register-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  margin-top: 80px; /* Adjust this value based on the height of your navbar */
+}
+
+/* Styling the form */
+.login-form, .register-form {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+}
+
+.login-form input, .register-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.login-form button, .register-form button {
+  font-family: "Raleway", sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #5ca9fb;
+  background-image: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+  padding: 14px 34px;
+  letter-spacing: 1px;
+  margin-top: 15px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 25px;
+  transition: all 0.5s linear;
+  border: 0;
+  width:100%;
+}
+
+
+.login-form button:hover, .register-form button:hover {
+  color: #fff;
+  background-image: none;
+  background-color: #6372ff;
+}
+
+/* Styling for the section title */
+.login-section-title, .register-section-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-section-title h2, .register-section-title h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.login-section-title p, .register-section-title p {
+  font-size: 16px;
+  color: #777;
+}
+
