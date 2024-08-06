@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigation } from "./components/Navigation";
 import { Header } from "./components/Header";
-import { Features } from "./components/Features";
 import { About } from "./components/About";
 import { Services } from "./components/Services";
 import { Gallery } from "./components/Gallery";
@@ -41,7 +40,6 @@ const App = () => {
             element={
               <>
                 <Header data={landingPageData.Header} />
-                <Features data={landingPageData.Features} />
                 <About data={landingPageData.About} />
                 <Services data={landingPageData.Services} />
                 <Gallery data={landingPageData.Gallery} />

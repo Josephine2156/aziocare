@@ -20,7 +20,7 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
           </button>
           <Link className="navbar-brand page-scroll" to="/">
-            React Landing Page
+           AzioCare
           </Link>{" "}
         </div>
 
@@ -29,11 +29,6 @@ export const Navigation = (props) => {
           id="bs-example-navbar-collapse-1"
         >
           <ul className="nav navbar-nav navbar-right">
-            <li>
-              <HashLink smooth to="/#features" className="page-scroll">
-                Features
-              </HashLink>
-            </li>
             <li>
               <HashLink smooth to="/#about" className="page-scroll">
                 About
@@ -56,7 +51,7 @@ export const Navigation = (props) => {
             </li>
             <li>
               <HashLink smooth to="/#team" className="page-scroll">
-                Team
+                FAQ
               </HashLink>
             </li>
             <li>

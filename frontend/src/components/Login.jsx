@@ -44,9 +44,9 @@ function Login() {
       <form className="login-form" name="loginForm" validate onSubmit={handleSubmit}>
         <div className="login-section-title">
           <h2>Login</h2>
-          <p>Please enter your email and password to log in.</p>
+          <p>Login to access our services</p>
         </div>
-        <div className="form-group">
+        <div className="col-md-12">
           <input
             type="email"
             id="email"
@@ -58,7 +58,7 @@ function Login() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="col-md-12">
           <input
             type="password"
             id="password"

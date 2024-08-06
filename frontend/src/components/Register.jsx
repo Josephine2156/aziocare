@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+// define initial state with default values 
 const initialState = {
   email: "",
   password: "",
@@ -8,8 +9,7 @@ const initialState = {
   date_of_birth: "",
   first_name: "",
   last_name: "",
-  phone_number: "",
-  role: "Patient", // Default role
+  role: "Patient", 
 };
 
 function Register() {
@@ -21,9 +21,8 @@ function Register() {
       date_of_birth,
       first_name,
       last_name,
-      phone_number,
       role,
-    },
+    },                     // destructuring to directly access each form field value from the state object, ensure that we can track the value of each field individually.
     setState,
   ] = useState(initialState);
 
@@ -32,7 +31,7 @@ function Register() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value })); //update state with new value for corresponding fields,  using prevState so each state update is based on the latest state
-  };
+  };                                                            //this function updates the specific field that changed while preserving the rest of the state.
 
   const clearState = () => setState({ ...initialState }); //function to clear state
 
@@ -46,7 +45,6 @@ function Register() {
         date_of_birth,
         first_name,
         last_name,
-        phone_number,
         role,
       }); //make post request to endpoint with form data
       console.log("API response:", response);
@@ -75,7 +73,7 @@ function Register() {
           <h2>Register</h2>
           <p>Create your account to access our services</p>
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-6">
           <input
             type="text"
             id="first_name"
@@ -87,7 +85,7 @@ function Register() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-6">
           <input
             type="text"
             id="last_name"
@@ -99,7 +97,7 @@ function Register() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-12">
           <input
             type="email"
             id="email"
@@ -111,31 +109,8 @@ function Register() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
-          <input
-            type="date"
-            id="date_of_birth"
-            name="date_of_birth"
-            className="form-control"
-            placeholder="Date of Birth"
-            required
-            value={date_of_birth}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            id="phone_number"
-            name="phone_number"
-            className="form-control"
-            placeholder="Phone Number"
-            required
-            value={phone_number}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
+
+        <div className="form-group col-md-12">
           <input
             type="password"
             id="password"
@@ -147,7 +122,7 @@ function Register() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-12">
           <input
             type="password"
             id="confirm_password"
@@ -159,7 +134,21 @@ function Register() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-7">
+        <label for="role">You must be older than 16 to register</label>
+          <input
+            type="date"
+            id="date_of_birth"
+            name="date_of_birth"
+            className="form-control"
+            placeholder="Date of Birth"
+            required
+            value={date_of_birth}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group col-md-5">
+          <label for="role">Select Role:</label>
           <select
             id="role"
             name="role"
@@ -168,6 +157,7 @@ function Register() {
             onChange={handleChange}
             required
           >
+
             <option value="Patient">Patient</option>
             <option value="Doctor">Doctor</option>
             <option value="Admin">Admin</option>
