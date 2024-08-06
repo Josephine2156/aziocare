@@ -27,25 +27,17 @@ function Register() {
     setState,
   ] = useState(initialState);
 
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    setState((prevState) => ({ ...prevState, [name]: value })); //update state with new value for corresponding fields,  using prevState so each state update is based on the latest state
   };
 
-  const clearState = () => setState({ ...initialState });
+  const clearState = () => setState({ ...initialState }); //function to clear state
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Form submitted with data:", {
-      email,
-      password,
-      confirm_password,
-      date_of_birth,
-      first_name,
-      last_name,
-      phone_number,
-      role,
-    });
+    e.preventDefault(); //prevent default reloading page behaviour 
     try {
       const response = await axios.post("/auth/register", {
         email,
@@ -56,22 +48,22 @@ function Register() {
         last_name,
         phone_number,
         role,
-      });
+      }); //make post request to endpoint with form data
       console.log("API response:", response);
-      alert(response.data.message);
-      clearState();
+      alert(response.data.message); //success message 
+      clearState(); //reset form field to initial state 
     } catch (error) {
       console.error("Error:", error); // Log the entire error object
       if (error.response) {
-        console.error("Error response:", error.response);
+        console.error("Error response:", error.response); //any server error 
         if (error.response.data.errors) {
-          const errorMessages = Object.values(error.response.data.errors).flat().join("\n");
+          const errorMessages = Object.values(error.response.data.errors).flat().join("\n"); //any validation errrors
           alert("Validation errors:\n" + errorMessages);
         } else {
-          alert(error.response.data.error || "Registration failed");
+          alert(error.response.data.error || "Registration failed"); //general error message if there are no validation errors
         }
       } else {
-        alert("An error occurred: " + error.message);
+        alert("An error occurred: " + error.message); //general error message if no server response 
       }
     }
   };
