@@ -29,3 +29,5 @@ export const Services = (props) => {
     </div>
   );
 };
+
+export default Services;

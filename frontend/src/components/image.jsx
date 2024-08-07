@@ -15,3 +15,5 @@ export const Image = ({ title, largeImage, smallImage }) => {
     </div>
   );
 };
+
+export default Image;
