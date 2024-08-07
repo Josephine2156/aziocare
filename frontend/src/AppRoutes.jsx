@@ -13,17 +13,18 @@ import PatientDashboard from "./components/PatientDashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 
+// define component which accepts several props from parent component (App)
 const AppRoutes = ({ landingPageData, isLoggedIn, userRole, handleLogin, handleLogout }) => {
-  const navigate = useNavigate(); // useNavigate hook
+  const navigate = useNavigate(); // initialize navigate function that is returned by useNavigate hook
 
   const logoutAndNavigate = () => {
-    handleLogout(navigate);
+    handleLogout(navigate); //navigate user back to landing page afer logout
   };
 
   return (
     <Routes>
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login onLogin={handleLogin} />} />
+      <Route path="/register" element={<Register />} /> 
+      <Route path="/login" element={<Login onLogin={handleLogin} />} />    
       {isLoggedIn ? (
         <>
           {userRole === "Patient" && (
