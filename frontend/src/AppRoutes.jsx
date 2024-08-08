@@ -9,7 +9,7 @@ import Team from "./components/Team";
 import Contact from "./components/Contact";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import PatientDashboard from "./components/PatientDashboard";
+import PatientDashboard from "./components/Patient/PatientDashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 
