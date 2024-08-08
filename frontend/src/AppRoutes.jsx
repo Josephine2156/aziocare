@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import About from "./components/About";
 import Services from "./components/Services";
@@ -14,13 +14,7 @@ import DoctorDashboard from "./components/DoctorDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 
 // define component which accepts several props from parent component (App)
-const AppRoutes = ({ landingPageData, isLoggedIn, userRole, handleLogin, handleLogout }) => {
-  const navigate = useNavigate(); // initialize navigate function that is returned by useNavigate hook
-
-  const logoutAndNavigate = () => {
-    handleLogout(navigate); //navigate user back to landing page afer logout
-  };
-
+const AppRoutes = ({ landingPageData, isLoggedIn, userRole, handleLogin }) => {
   return (
     <Routes>
       <Route path="/register" element={<Register />} /> 
@@ -28,13 +22,13 @@ const AppRoutes = ({ landingPageData, isLoggedIn, userRole, handleLogin, handleL
       {isLoggedIn ? (
         <>
           {userRole === "Patient" && (
-            <Route path="/dashboard/patient" element={<PatientDashboard onLogout={logoutAndNavigate} />} />
+            <Route path="/dashboard/patient" element={<PatientDashboard />} />
           )}
           {userRole === "Doctor" && (
-            <Route path="/dashboard/doctor" element={<DoctorDashboard onLogout={logoutAndNavigate} />} />
+            <Route path="/dashboard/doctor" element={<DoctorDashboard />} />
           )}
           {userRole === "Admin" && (
-            <Route path="/dashboard/admin" element={<AdminDashboard onLogout={logoutAndNavigate} />} />
+            <Route path="/dashboard/admin" element={<AdminDashboard />} />
           )}
           <Route path="*" element={<Navigate to={`/dashboard/${userRole.toLowerCase()}`} />} />
         </>

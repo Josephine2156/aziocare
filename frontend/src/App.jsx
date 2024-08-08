@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import AppRoutes from "./AppRoutes"; // New AppRoutes component
+import AppRoutes from "./AppRoutes";
 import Navigation from "./components/Navigation";
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
@@ -36,7 +36,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        {!isLoggedIn && <Navigation />}
+        <Navigation isLoggedIn={isLoggedIn} userRole={userRole} handleLogout={handleLogout} />
         <AppRoutes
           landingPageData={landingPageData}
           isLoggedIn={isLoggedIn}

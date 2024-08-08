@@ -1,8 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 
-export const Navigation = (props) => {
+const Navigation = ({ isLoggedIn, userRole, handleLogout }) => {
+  const navigate = useNavigate();
+
+  const logoutAndNavigate = () => {
+    handleLogout(navigate);
+  };
+
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -29,43 +35,77 @@ export const Navigation = (props) => {
           id="bs-example-navbar-collapse-1"
         >
           <ul className="nav navbar-nav navbar-right">
-            <li>
-              <HashLink smooth to="/#about" className="page-scroll">
-                About
-              </HashLink>
-            </li>
-            <li>
-              <HashLink smooth to="/#services" className="page-scroll">
-                Services
-              </HashLink>
-            </li>
-            <li>
-              <HashLink smooth to="/#portfolio" className="page-scroll">
-                Gallery
-              </HashLink>
-            </li>
-            <li>
-              <HashLink smooth to="/#testimonials" className="page-scroll">
-                Testimonials
-              </HashLink>
-            </li>
-            <li>
-              <HashLink smooth to="/#team" className="page-scroll">
-                FAQ
-              </HashLink>
-            </li>
-            <li>
-              <HashLink smooth to="/#contact" className="page-scroll">
-                Contact
-              </HashLink>
-            </li>
-            {/* Add Login and Register links */}
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
+            {!isLoggedIn && (
+              <>
+                <li>
+                  <HashLink smooth to="/#about" className="page-scroll">
+                    About
+                  </HashLink>
+                </li>
+                <li>
+                  <HashLink smooth to="/#services" className="page-scroll">
+                    Services
+                  </HashLink>
+                </li>
+                <li>
+                  <HashLink smooth to="/#portfolio" className="page-scroll">
+                    Gallery
+                  </HashLink>
+                </li>
+                <li>
+                  <HashLink smooth to="/#testimonials" className="page-scroll">
+                    Testimonials
+                  </HashLink>
+                </li>
+                <li>
+                  <HashLink smooth to="/#team" className="page-scroll">
+                    FAQ
+                  </HashLink>
+                </li>
+                <li>
+                  <HashLink smooth to="/#contact" className="page-scroll">
+                    Contact
+                  </HashLink>
+                </li>
+                {/* Add Login and Register links */}
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </>
+            )}
+            {isLoggedIn && userRole === 'Patient' && (
+              <>
+                <li>
+                  <Link to="/dashboard/patient">Dashboard</Link>
+                </li>
+                <li>
+                  <Link to="/" onClick={logoutAndNavigate}>Logout</Link>
+                </li>
+              </>
+            )}
+            {isLoggedIn && userRole === 'Doctor' && (
+              <>
+                <li>
+                  <Link to="/dashboard/doctor">Dashboard</Link>
+                </li>
+                <li>
+                  <Link to="/" onClick={logoutAndNavigate}>Logout</Link>
+                </li>
+              </>
+            )}
+            {isLoggedIn && userRole === 'Admin' && (
+              <>
+                <li>
+                  <Link to="/dashboard/admin">Dashboard</Link>
+                </li>
+                <li>
+                  <Link to="/" onClick={logoutAndNavigate}>Logout</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
