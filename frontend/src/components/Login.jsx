@@ -2,19 +2,18 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// onLogin function passed as a prop to Login component. It updates the global state to reflect that the user is logged in and sets the user role.
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false); // state to manage password visibility
-  const navigate = useNavigate(); // useNavigate hook
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
-      ...formData, // use spread operator to take existing property of form data and include in new object
-      [e.target.name]: e.target.value, // update the property and value that triggered the event
+      ...formData,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -22,11 +21,20 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     try {
       const response = await axios.post("/auth/login", formData);
-      alert(response.data.message); // success message
-      // Handle storing user session data and redirecting based on role
-      const role = response.data.role; // retrieve user role from the response
-      onLogin(role); // Call onLogin with the role
-      if (role === "Patient") {
+      alert(response.data.message);
+
+      const role = response.data.role;
+      const userId = response.data.user_id;
+      const profileIncomplete = response.data.message === "Please complete your Patient Profile";
+      onLogin(role, userId, profileIncomplete);
+
+      console.log('Role:', role);
+      console.log('User ID:', userId);
+      console.log('Profile Incomplete:', profileIncomplete);
+
+      if (role === "Patient" && profileIncomplete) {
+        navigate(`/complete-profile/${userId}`);
+      } else if (role === "Patient") {
         navigate("/dashboard/patient");
       } else if (role === "Doctor") {
         navigate("/dashboard/doctor");
@@ -34,18 +42,18 @@ const Login = ({ onLogin }) => {
         navigate("/dashboard/admin");
       }
     } catch (error) {
-      console.error("Login error:", error); // Log the error for debugging
+      console.error("Login error:", error);
       if (error.response) {
         console.error("Error response:", error.response);
-        alert(error.response.data.error || "Login failed"); // any validation errors, else default message
+        alert(error.response.data.error || "Login failed");
       } else {
-        alert("An error occurred: " + error.message); // generic error if there's no server response
+        alert("An error occurred: " + error.message);
       }
     }
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);          // (!showPassword) inverts the current value of showPassword, initial value of showPassword is false, so when this function is triggered showPassword becomes true
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -69,7 +77,7 @@ const Login = ({ onLogin }) => {
         </div>
         <div className="col-md-12">
           <input
-            type={showPassword ? "text" : "password"}    //if showPassword is true, type becomes text and displays the password
+            type={showPassword ? "text" : "password"}
             id="password"
             name="password"
             className="form-control"
@@ -84,7 +92,7 @@ const Login = ({ onLogin }) => {
             type="checkbox"
             id="show-password"
             className="show-password-checkbox"
-            checked={showPassword}    //this binds the state of the checkbox the the showPassword state variable, so when box is checked, showPassword is true and vice versa
+            checked={showPassword}
             onChange={togglePasswordVisibility}
           />
           <label htmlFor="show-password" className="show-password-label">

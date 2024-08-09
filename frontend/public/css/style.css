@@ -669,3 +669,26 @@ label {
   color: #777;
 }
 
+
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image:url(../img/lilac-bg.jpg);
+  background-size: cover;
+  background-position: center;
+  padding-top: 80px; /* Adjust this value based on the height of your navbar */
+  background-color: #f0f0f0; /* Fallback background color */
+}
+
+.dashboard-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
+}

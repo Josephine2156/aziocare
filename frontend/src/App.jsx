@@ -15,6 +15,8 @@ const App = () => {
   const [landingPageData, setLandingPageData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(""); // Add user role state
+  const [userId, setUserId] = useState(null);
+  const [profileIncomplete, setProfileIncomplete] = useState(false);
 
   useEffect(() => {
     console.log("Loading data...");
@@ -22,9 +24,11 @@ const App = () => {
     console.log("Data loaded: ", JsonData);
   }, []);
 
-  const handleLogin = (role) => {
+  const handleLogin = (role, userId, profileIncomplete) => {
     setIsLoggedIn(true);
     setUserRole(role); // Set user role on login
+    setUserId(userId);
+    setProfileIncomplete(profileIncomplete);
   };
 
   const handleLogout = (navigate) => {
@@ -41,6 +45,8 @@ const App = () => {
           landingPageData={landingPageData}
           isLoggedIn={isLoggedIn}
           userRole={userRole}
+          userId={userId}
+          profileIncomplete={profileIncomplete}
           handleLogin={handleLogin}
           handleLogout={handleLogout}
         />

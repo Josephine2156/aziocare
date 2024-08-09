@@ -12,16 +12,19 @@ import Login from "./components/Login";
 import PatientDashboard from "./components/Patient/PatientDashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import AdminDashboard from "./components/AdminDashboard";
+import CompletePatientProfile from "./components/Patient/CompletePatientProfile";
 
-// define component which accepts several props from parent component (App)
-const AppRoutes = ({ landingPageData, isLoggedIn, userRole, handleLogin }) => {
+const AppRoutes = ({ landingPageData, isLoggedIn, userRole, handleLogin, userId, profileIncomplete }) => {
   return (
     <Routes>
-      <Route path="/register" element={<Register />} /> 
-      <Route path="/login" element={<Login onLogin={handleLogin} />} />    
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login onLogin={handleLogin} />} />
       {isLoggedIn ? (
         <>
-          {userRole === "Patient" && (
+          {userRole === "Patient" && profileIncomplete && (
+            <Route path="/complete-profile/:userId" element={<CompletePatientProfile />} />
+          )}
+          {userRole === "Patient" && !profileIncomplete && (
             <Route path="/dashboard/patient" element={<PatientDashboard />} />
           )}
           {userRole === "Doctor" && (
@@ -30,7 +33,7 @@ const AppRoutes = ({ landingPageData, isLoggedIn, userRole, handleLogin }) => {
           {userRole === "Admin" && (
             <Route path="/dashboard/admin" element={<AdminDashboard />} />
           )}
-          <Route path="*" element={<Navigate to={`/dashboard/${userRole.toLowerCase()}`} />} />
+          <Route path="*" element={<Navigate to={userRole === "Patient" && profileIncomplete ? `/complete-profile/${userId}` : `/dashboard/${userRole.toLowerCase()}`} />} />
         </>
       ) : (
         <Route
