@@ -108,19 +108,42 @@ def check_patient_profile(user_id):
 @auth_bp.route('/patient/complete/<user_id>', methods=['GET', 'POST'])
 def complete_patient_profile(user_id):
     if request.method == 'POST':
-        # Save the patient profile to the database
         data = request.json
+        # Add the user_id from the URL parameter to the data being validated
+        data['user_id'] = user_id
+
+        # Validate incoming data using PatientSchema
+        try:
+            validated_data = patient_schema.load(data)
+        except ValidationError as err:
+            return jsonify({"errors": err.messages}), 400
+
+        # Save the validated patient profile to the database
         patient_id = mongo.db.patients.insert_one({
             "user_id": ObjectId(user_id),
-            "phone": data.get("phone"),
-            "nhi_number": data.get("nhi_number"),
-            "verification_status": "unverified"  # Set to unverified until further action
+            "phone": validated_data["phone"],
+            "nhi_number": validated_data["nhi_number"],
         }).inserted_id
 
-        return redirect(url_for('auth.get_patient_profile', patient_id=str(patient_id)))
-    
-    # Render the form to complete the profile (or send the form details to the frontend)
-    return jsonify({"message": "Please complete your Patient Profile"})
+        return jsonify({"message": "Profile completed successfully.", "patient_id": str(patient_id)}), 200
 
+    # If accessed via GET
+    elif request.method == 'GET':
+        # Fetch the user's information from the users collection
+        user = mongo.db.users.find_one({"_id": ObjectId(user_id)}, {"first_name": 1, "last_name": 1, "email": 1, "date_of_birth": 1, "_id": 0})
+
+        if not user:
+            return jsonify({"error": "User not found."}), 404
+
+        # Return the user's details
+        return jsonify({
+            "first_name": user["first_name"],
+            "last_name": user["last_name"],
+            "email": user["email"],
+            "date_of_birth": user["date_of_birth"].strftime("%d/%m/%Y")  # Format DOB as a string
+        }), 200
+
+    # Default response for unexpected method types
+    return jsonify({"error": "Invalid request method."}), 405
 
 

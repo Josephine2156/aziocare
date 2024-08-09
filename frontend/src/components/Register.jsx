@@ -57,7 +57,7 @@ function Register() {
         console.error("Error response:", error.response); //any server error 
         if (error.response.data.errors) {
           const errorMessages = Object.values(error.response.data.errors).flat().join("\n"); //any validation errrors
-          alert("Validation errors:\n" + errorMessages);
+          alert(errorMessages);
         } else {
           alert(error.response.data.error || "Registration failed. Please try again."); //general error message if there are no validation errors
         }
@@ -136,7 +136,7 @@ function Register() {
           />
         </div>
         <div className="form-group col-md-7">
-        <label for="role">You must be older than 16 to register</label>
+        <label for="date_of_birth">You must be older than 16 to register</label>
           <input
             type="date"
             id="date_of_birth"

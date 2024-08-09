@@ -36,11 +36,16 @@ const App = () => {
     setUserRole(""); // Reset user role on logout
     navigate("/"); // Redirect to landing page
   };
+  
+  // Function to update profileIncomplete to false when profile is complete
+  const profileComplete = () => {
+    setProfileIncomplete(false);
+  };
 
   return (
     <Router>
       <div>
-        <Navigation isLoggedIn={isLoggedIn} userRole={userRole} handleLogout={handleLogout} />
+        <Navigation isLoggedIn={isLoggedIn} userRole={userRole} handleLogout={handleLogout} profileIncomplete={profileIncomplete} />
         <AppRoutes
           landingPageData={landingPageData}
           isLoggedIn={isLoggedIn}
@@ -49,6 +54,7 @@ const App = () => {
           profileIncomplete={profileIncomplete}
           handleLogin={handleLogin}
           handleLogout={handleLogout}
+          profileComplete={profileComplete}
         />
       </div>
     </Router>

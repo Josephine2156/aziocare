@@ -2,8 +2,12 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 
-const Navigation = ({ isLoggedIn, userRole, handleLogout }) => {
+const Navigation = ({ isLoggedIn, userRole, profileIncomplete, handleLogout }) => {
   const navigate = useNavigate();
+
+  console.log("isLoggedIn:", isLoggedIn);
+  console.log("userRole:", userRole);
+  console.log("profileIncomplete:", profileIncomplete);
 
   const logoutAndNavigate = () => {
     handleLogout(navigate);
@@ -26,7 +30,7 @@ const Navigation = ({ isLoggedIn, userRole, handleLogout }) => {
             <span className="icon-bar"></span>{" "}
           </button>
           <Link className="navbar-brand page-scroll" to="/">
-           AzioCare
+            AzioCare
           </Link>{" "}
         </div>
 
@@ -67,7 +71,6 @@ const Navigation = ({ isLoggedIn, userRole, handleLogout }) => {
                     Contact
                   </HashLink>
                 </li>
-                {/* Add Login and Register links */}
                 <li>
                   <Link to="/login">Login</Link>
                 </li>
@@ -76,11 +79,19 @@ const Navigation = ({ isLoggedIn, userRole, handleLogout }) => {
                 </li>
               </>
             )}
-            {isLoggedIn && userRole === 'Patient' && (
+            {isLoggedIn && userRole === 'Patient' && !profileIncomplete && (
               <>
                 <li>
                   <Link to="/dashboard/patient">Dashboard</Link>
                 </li>
+                
+                <li>
+                  <Link to="/" onClick={logoutAndNavigate}>Logout</Link>
+                </li>
+              </>
+            )}
+            {isLoggedIn && userRole === 'Patient' && profileIncomplete && (
+              <>
                 <li>
                   <Link to="/" onClick={logoutAndNavigate}>Logout</Link>
                 </li>

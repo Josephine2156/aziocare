@@ -14,7 +14,7 @@ import DoctorDashboard from "./components/DoctorDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 import CompletePatientProfile from "./components/Patient/CompletePatientProfile";
 
-const AppRoutes = ({ landingPageData, isLoggedIn, userRole, handleLogin, userId, profileIncomplete }) => {
+const AppRoutes = ({ landingPageData, isLoggedIn, userRole, handleLogin, userId, profileIncomplete, profileComplete }) => {
   return (
     <Routes>
       <Route path="/register" element={<Register />} />
@@ -22,7 +22,10 @@ const AppRoutes = ({ landingPageData, isLoggedIn, userRole, handleLogin, userId,
       {isLoggedIn ? (
         <>
           {userRole === "Patient" && profileIncomplete && (
-            <Route path="/complete-profile/:userId" element={<CompletePatientProfile />} />
+            <Route 
+              path="/complete-profile/:userId" 
+              element={<CompletePatientProfile profileComplete={profileComplete} />} 
+            />
           )}
           {userRole === "Patient" && !profileIncomplete && (
             <Route path="/dashboard/patient" element={<PatientDashboard />} />
