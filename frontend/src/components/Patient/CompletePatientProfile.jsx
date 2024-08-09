@@ -43,7 +43,7 @@ const CompletePatientProfile = ({ profileComplete }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`/auth/patient/complete/${userId}`, {
+        axios.post(`/patient/complete_profile/${userId}`, {
             phone: formData.phone,
             nhi_number: formData.nhi_number
         })

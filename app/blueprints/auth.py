@@ -68,42 +68,40 @@ def login():
         return jsonify({"error": "An unexpected error occurred."}), 500  # internal server error
 
     
-
+                        #pass patient ID as string param
 @auth_bp.route('/patient/<patient_id>', methods=['GET'])
 def get_patient_profile(patient_id):
-    # Fetch the patient profile
-    patient = patient_schema(patient_id)
-    if not patient:
-        return jsonify({"error": "Patient not found"}), 404
+    try:
+        # Fetch the patient profile from MongoDB, convert patient ID to object ID to query correctly in Mongo DB
+        patient = mongo.db.patients.find_one({"_id": ObjectId(patient_id)})
+        if not patient:
+            return jsonify({"error": "Patient not found"}), 404
 
-    # Fetch the user data using user_id
-    user = user_schema(patient["user_id"])
-    if not user:
-        return jsonify({"error": "User not found"}), 404
+        # Fetch the user data using the user_id from the patient document
+        user = mongo.db.users.find_one({"_id": ObjectId(patient["user_id"])})
+        if not user:
+            return jsonify({"error": "User not found"}), 404
 
-    # Combine the patient data with the user data
-    patient_profile = {
-        "first_name": user["first_name"],
-        "last_name": user["last_name"],
-        "date_of_birth": user["date_of_birth"],
-        "email": user["email"],
-        "phone": patient["phone"],
-        "verification_status": patient["verification_status"],
-        "nhi_number": patient["nhi_number"]  # Include the NHI number
-    }
+        # Serialize the patient and user data (convert object to JSON)
+        patient_data = patient_schema.dump(patient)
+        user_data = user_schema.dump(user)
 
-    return jsonify(patient_profile)
+        # Combine the patient data with the user data
+        patient_profile = {
+            "first_name": user_data.get("first_name"),
+            "last_name": user_data.get("last_name"),
+            "date_of_birth": user_data.get("date_of_birth"),
+            "email": user_data.get("email"),
+            "phone": patient_data.get("phone"),
+            "nhi_number": patient_data.get("nhi_number")  
+        }
+
+        return jsonify(patient_profile), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
-@auth_bp.route('/patient/check/<user_id>', methods=['GET'])
-def check_patient_profile(user_id):
-    patient = mongo.db.patients.find_one({"user_id": ObjectId(user_id)})
-    if not patient:
-        # Redirect to the profile completion page
-        return redirect(url_for('auth.complete_patient_profile', user_id=user_id))
-    else:
-        # Redirect to the dashboard or patient profile view
-        return redirect(url_for('auth.get_patient_profile', patient_id=str(patient["_id"])))
 
 @auth_bp.route('/patient/complete/<user_id>', methods=['GET', 'POST'])
 def complete_patient_profile(user_id):
@@ -123,8 +121,9 @@ def complete_patient_profile(user_id):
             "user_id": ObjectId(user_id),
             "phone": validated_data["phone"],
             "nhi_number": validated_data["nhi_number"],
-        }).inserted_id
+        }).inserted_id   #inserted_id attribute provides the value of the _id field for the inserted document.
 
+        session["patient_id"] = str(patient_id) #store patient id in session
         return jsonify({"message": "Profile completed successfully.", "patient_id": str(patient_id)}), 200
 
     # If accessed via GET
